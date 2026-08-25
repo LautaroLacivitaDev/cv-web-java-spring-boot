@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title th:text="${fullName} + ' — ' + ${title}">CV</title>
+  <meta name="description" th:content="${title} + ' · ' + ${location}"/>
+  <meta name="theme-color" content="#0b0e15"/>
+
+  <meta property="og:type" content="profile"/>
+  <meta property="og:title" th:content="${fullName} + ' — ' + ${title}"/>
+  <meta property="og:description" th:content="${title} + ' · ' + ${location}"/>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0e15'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='16' font-weight='700' fill='%236db33f' text-anchor='middle'%3E%3C/%3E%3C/text%3E%3C/svg%3E"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand"><strong th:text="${fullName}">Nombre</strong> <span th:text="'/ ' + ${title}">/ Título</span></div>
+    <span class="status-pill">Open to work</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div>
+      <p class="hero-title" th:text="${title}">Jr. Software Developer</p>
+      <h1 th:text="${fullName}">Nombre Apellido</h1>
+      <p class="lede">
+        Backend developer en formación, enfocado en Java y Spring Boot.
+        Vengo de liderar equipos operativos y ahora aplico esa misma disciplina
+        a escribir software prolijo, testeado y listo para producción.
+      </p>
+
+      <ul class="contact-list">
+        <li><span class="k" aria-hidden="true">loc</span><span th:text="${location}">Ciudad</span></li>
+        <li><span class="k" aria-hidden="true">tel</span><a th:href="${phoneHref}" th:text="${phone}">Teléfono</a></li>
+        <li><span class="k" aria-hidden="true">mail</span><span th:text="${email}">Email</span></li>
+        <li><span class="k" aria-hidden="true">in</span><a th:href="${linkedinUrl}" target="_blank" rel="noopener noreferrer" th:text="${linkedin}">LinkedIn</a></li>
+      </ul>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" th:href="${gmailUrl}" target="_blank" rel="noopener noreferrer">Escribirme</a>
+        <a class="btn btn-ghost" th:href="${linkedinUrl}" target="_blank" rel="noopener noreferrer">Ver LinkedIn</a>
+        <a class="btn btn-ghost" th:href="@{/files/cv-lautaro-lacivita.pdf}" download>Descargar CV (PDF)</a>
+      </div>
+    </div>
+
+    <div class="code-card" aria-hidden="true">
+      <div class="bar">
+        <span class="dot red"></span>
+        <span class="dot amber"></span>
+        <span class="dot green"></span>
+        <span class="filename">BackendDeveloper.java</span>
+      </div>
+      <pre><code
+      ><span class="code-line"><span class="ln">1</span><span class="tok-kw">public class</span> <span class="tok-txt">Lautaro</span> <span class="tok-dim">{</span></span>
+<span class="code-line"><span class="ln">2</span>    <span class="tok-kw">String</span> <span class="tok-txt">role</span>     <span class="tok-dim">=</span> <span class="tok-str">"Jr. Software Developer";</span></span>
+<span class="code-line"><span class="ln">3</span>    <span class="tok-kw">String</span> <span class="tok-txt">stack</span>    <span class="tok-dim">=</span> <span class="tok-str">"Java · Spring Boot · SQL";</span></span>
+<span class="code-line"><span class="ln">4</span>    <span class="tok-kw">String</span> <span class="tok-txt">background</span> <span class="tok-dim">=</span> <span class="tok-str">"Team Lead → Developer";</span></span>
+<span class="code-line"><span class="ln">5</span>    <span class="tok-kw">boolean</span> <span class="tok-txt">openToWork</span> <span class="tok-dim">=</span> <span class="tok-kw">true</span><span class="tok-dim">;</span></span>
+<span class="code-line"><span class="ln">6</span></span>
+<span class="code-line"><span class="ln">7</span><span class="tok-dim">}</span></span
+      ></code></pre>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="idx">01</span>
+      <h2>Experiencia</h2>
+    </div>
+
+    <div th:each="exp : ${experiences}" class="exp-item">
+      <div class="exp-head">
+        <h3><span th:text="${exp.role}">Rol</span> · <span class="company" th:text="${exp.company}">Empresa</span></h3>
+        <span class="period" th:text="${exp.period}">Período</span>
+      </div>
+      <ul>
+        <li th:each="h : ${exp.highlights}" th:text="${h}">Detalle</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="idx">02</span>
+      <h2>Educación</h2>
+    </div>
+    <div class="list-grid">
+      <div th:each="ed : ${education}" class="item-row">
+        <div class="info">
+          <strong th:text="${ed.title}">Título</strong>
+          <span th:text="${ed.institution}">Institución</span>
+        </div>
+        <span class="badge" th:classappend="${ed.inProgress} ? 'progress' : 'done'"
+              th:text="${ed.status}">Estado</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="idx">03</span>
+      <h2>Cursos y certificaciones</h2>
+    </div>
+    <div class="list-grid">
+      <div th:each="c : ${courses}" class="item-row">
+        <div class="info">
+          <strong th:text="${c.title}">Curso</strong>
+          <span th:text="${c.institution}">Plataforma</span>
+        </div>
+        <span class="badge" th:classappend="${c.inProgress} ? 'progress' : 'done'"
+              th:text="${c.status}">Estado</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <span class="idx">04</span>
+      <h2>Habilidades</h2>
+    </div>
+    <div class="skill-row">
+      <span class="skill-pill" th:each="s : ${skills}" th:text="${s}">Skill</span>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span th:text="'© ' + ${#calendars.format(#calendars.createNow(), 'yyyy')} + ' ' + ${fullName}">© Año Nombre</span>
+    <a th:href="${gmailUrl}" th:text="${email}" target="_blank" rel="noopener noreferrer">email</a>
+  </div>
+</footer>
+
+</body>
+</html>
