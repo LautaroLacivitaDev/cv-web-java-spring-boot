@@ -24,7 +24,6 @@ public class EducationItem {
         return status;
     }
 
-    /** true si figura como "En curso", usado para pintar el badge correcto. */
     public boolean isInProgress() {
         return status != null && status.equalsIgnoreCase("En curso");
     }

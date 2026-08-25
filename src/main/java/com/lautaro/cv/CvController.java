@@ -67,18 +67,13 @@ public class CvController {
         return "index";
     }
 
-    /**
-     * Arma la URL de "Redactar" de Gmail con destinatario y asunto precargados,
-     * para que el botón de contacto abra Gmail en el navegador en vez de
-     * depender de un cliente de correo local configurado (mailto:).
-     */
     private String buildGmailComposeUrl(String toEmail, String subject) {
         String encodedTo = URLEncoder.encode(toEmail, StandardCharsets.UTF_8);
         String encodedSubject = URLEncoder.encode(subject, StandardCharsets.UTF_8);
         return "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodedTo + "&su=" + encodedSubject;
     }
 
-    /** Normaliza el teléfono mostrado a un href tel: válido (solo dígitos y +). */
+
     private String toTelHref(String displayPhone) {
         return "tel:" + displayPhone.replaceAll("[^\\d+]", "");
     }
